@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="PAN UI Tree Table" default="build">
+    <target name="build">
+        <mkdir dir="${phing.dir.pan_ui_tree_table}/packages" />
+        <phingcall target="css" />
+        <phingcall target="cssdev" />
+        <phingcall target="js" />
+        <phingcall target="jsdev" />
+    </target>
+
+    <adhoc-task name="scss">
+        require_once 'vendor/pan/theme/classes/ScssTask.php';
+    </adhoc-task>
+
+    <target name="prepare">
+        <mkdir dir='example/lib' />
+        <mkdir dir='packages' />
+    </target>
+
+    <target name="css" description="Compile and compress all CSS files" depends="prepare">
+        <scss
+            scssFile="tree-table.scss"
+            cssFile="${phing.dir.pan_ui_tree_table}/packages/tree-table.min.css"
+            dir="${phing.dir.pan_ui_tree_table}/src"
+            compress="true"
+        />
+    </target>
+
+    <target name="cssdev" description="Compile all CSS files" depends="prepare">
+        <scss
+            scssFile="tree-table.scss"
+            cssFile="${phing.dir.pan_ui_tree_table}/packages/tree-table.css"
+            dir="${phing.dir.pan_ui_tree_table}/src"
+        />
+    </target>
+
+    <target name="js" description="Compile and compress all JS" depends="prepare">
+        <exec dir="${phing.dir.pan_ui_tree_table}" level="info" logoutput="true" command="
+            closure
+                --js src/tree-table.js
+                --js_output_file packages/tree-table.min.js
+        " />
+    </target>
+
+    <target name="jsdev" description="Compile all JS files" depends="prepare">
+        <exec dir="${phing.dir.pan_ui_tree_table}" level="info" logoutput="true" command="
+            cat
+                src/tree-table.js
+            > packages/tree-table.js
+        " />
+    </target>
+
+    <target name="lib-theme" description="Compiles the theme">
+        <phing phingfile="vendor/pan/theme/build.xml" target="build" inheritall="false">
+            <property name="theme-overrides" value="${project.basedir}/src/theme-variables.scss" />
+        </phing>
+        <copy file="vendor/pan/theme/packages/theme.css" tofile="example/lib/theme.css" />
+        <copy file="vendor/pan/theme/packages/theme-icons.css" tofile="example/lib/theme-icons.css" />
+        <copy file="vendor/pan/theme/packages/theme.min.css" tofile="example/lib/theme.min.css" />
+        <copy file="vendor/pan/theme/packages/theme-icons.min.css" tofile="example/lib/theme-icons.min.css" />
+        <copy file="vendor/pan/theme/packages/theme-icons.png" tofile="example/lib/theme-icons.png" />
+        <copy file="vendor/pan/theme/packages/theme-icons-hover.png" tofile="example/lib/theme-icons-hover.png" />
+    </target>
+
+    <target name="download-jquery" depends="prepare">
+        <mkdir dir='example/lib' />
+        <php>file_put_contents('example/lib/jquery.js', file_get_contents('http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js'));</php>
+        <php>file_put_contents('example/lib/jquery-ui.js', file_get_contents('http://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.js'));</php>
+    </target>
+</project>

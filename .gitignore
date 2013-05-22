@@ -1,3 +1,5 @@
-*.swo
-*.swp
-.DS_Store
+/vendor/
+/example/lib/
+/packages/
+*.scssc
+composer.lock

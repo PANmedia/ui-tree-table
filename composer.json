@@ -1,0 +1,23 @@
+{
+    "name": "pan/ui-table-builder",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Ludo van den Boom",
+            "url": "http://ludo.is"
+        },
+        {
+            "name": "David Neilsen",
+            "email": "david@panmedia.co.nz"
+        }
+    ],
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "http://vm3.hd1.panmedia.co.nz/satis/"
+        }
+    ],
+    "require": {
+        "pan/theme": "dev-master"
+    }
+}
