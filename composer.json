@@ -11,12 +11,6 @@
             "email": "david@panmedia.co.nz"
         }
     ],
-    "repositories": [
-        {
-            "type": "composer",
-            "url": "http://vm3.hd1.panmedia.co.nz/satis/"
-        }
-    ],
     "require": {
         "pan/theme": "dev-master"
     }
