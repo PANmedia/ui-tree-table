@@ -3,7 +3,6 @@
     <target name="build">
         <mkdir dir="${phing.dir.pan_ui_tree_table}/packages" />
         <phingcall target="css" />
-        <phingcall target="cssdev" />
         <phingcall target="js" />
         <phingcall target="jsdev" />
     </target>
@@ -18,15 +17,6 @@
     </target>
 
     <target name="css" description="Compile and compress all CSS files" depends="prepare">
-        <scss
-            scssFile="tree-table.scss"
-            cssFile="${phing.dir.pan_ui_tree_table}/packages/tree-table.min.css"
-            dir="${phing.dir.pan_ui_tree_table}/src"
-            compress="true"
-        />
-    </target>
-
-    <target name="cssdev" description="Compile all CSS files" depends="prepare">
         <scss
             scssFile="tree-table.scss"
             cssFile="${phing.dir.pan_ui_tree_table}/packages/tree-table.css"
